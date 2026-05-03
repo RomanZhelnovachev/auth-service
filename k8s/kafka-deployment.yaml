@@ -1,4 +1,3 @@
-# k8s/kafka-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -19,7 +18,6 @@ spec:
       volumes:
         - name: kafka-storage
           emptyDir: {}
-
       containers:
         - name: kafka
           image: confluentinc/confluent-local:7.6.0
@@ -28,21 +26,13 @@ spec:
               name: plaintext
             - containerPort: 9093
               name: controller
-
           env:
-            # ✅ CLUSTER_ID без префикса (образ читает именно его)
             - name: CLUSTER_ID
               value: "Dhpl9oTJTvWn8aSAmtN9xQ"
-
-            # ✅ Listeners: оба обязательны для KRaft combined mode
             - name: KAFKA_LISTENERS
               value: "PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093"
-
-            # ✅ Advertised: только PLAINTEXT для клиентов (внешний доступ через сервис)
             - name: KAFKA_ADVERTISED_LISTENERS
               value: "PLAINTEXT://kafka:9092"
-
-            # ✅ Controller settings: используем localhost для self-connection
             - name: KAFKA_CONTROLLER_LISTENER_NAMES
               value: "CONTROLLER"
             - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
@@ -51,15 +41,10 @@ spec:
               value: "broker,controller"
             - name: KAFKA_NODE_ID
               value: "1"
-            # 🔥 Ключевое: localhost вместо kafka для quorum voters в single-node
             - name: KAFKA_CONTROLLER_QUORUM_VOTERS
               value: "1@localhost:9093"
-
-            # ✅ Путь к данным
             - name: KAFKA_LOG_DIRS
               value: "/var/lib/kafka/data"
-
-            # ✅ Dev-настройки
             - name: KAFKA_AUTO_CREATE_TOPICS_ENABLE
               value: "true"
             - name: KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR
@@ -68,12 +53,9 @@ spec:
               value: "1"
             - name: KAFKA_TRANSACTION_STATE_LOG_MIN_ISR
               value: "1"
-
           volumeMounts:
             - name: kafka-storage
               mountPath: /var/lib/kafka/data
-
-          # ✅ Даём много времени на первую инициализацию (KRaft может занимать 60+ сек)
           startupProbe:
             tcpSocket:
               port: 9092

@@ -19,6 +19,7 @@ public class AuthController {
     @PostMapping("/register")
     public void register(@RequestBody
                          RegisterDto dto){
+        System.out.println(">>> CONTROLLER HIT");
         service.registerUser(dto);
     }
 

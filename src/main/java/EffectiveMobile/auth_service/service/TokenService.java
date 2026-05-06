@@ -31,8 +31,4 @@ public class TokenService {
     public Token getTokenByValue(String tokenValue) {
         return repository.findById(tokenValue).orElseThrow(()-> new TokenNotFoundException(tokenValue));
     }
-
-    public Token getTokenByUserId(String userId){
-        return repository.findByUserId(userId).orElseThrow(()-> new TokenNotFoundExceptionByUserId(userId));
-    }
 }

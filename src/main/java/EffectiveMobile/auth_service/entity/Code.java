@@ -1,35 +1,34 @@
 package EffectiveMobile.auth_service.entity;
 
-
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.TimeToLive;
 
 import java.time.Instant;
 
 /**
- * Сущность токена доступа
+ * Сущность кода подтверждения
  * <p>
- *     Модель данных для redis-таблицы token
+ *     Модель данных для redis-таблицы code
  * </p>
  *
  * @author ZhelnovachevRoman
  */
-@RedisHash("token")
+@RedisHash("code")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Token {
+public class Code {
 
     @Id
-    private String tokenValue;
+    private String email;
 
-    private String userId;
+    private String code;
 
     @TimeToLive
     private Long ttl;

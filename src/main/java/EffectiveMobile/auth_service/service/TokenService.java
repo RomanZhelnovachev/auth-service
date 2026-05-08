@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 
+/**
+ * Сервис для работы с токенами доступа
+ * @author ZhelnovachevRoman
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -20,6 +24,11 @@ public class TokenService {
 
     private static final Long TTL = 86400L;
 
+    /**
+     * Метод сохранения сгенерированного токена в базу
+     * @param userId
+     * @return значение токена
+     */
     public String saveToken(String userId) {
         repository.findByUserId(userId).ifPresent(repository::delete);
         Token token = new Token(TokenGenerator.generate(), userId, TTL, Instant.now());
@@ -28,6 +37,11 @@ public class TokenService {
         return token.getTokenValue();
     }
 
+    /**
+     * Метод поиска токена по значению токена
+     * @param tokenValue
+     * @return токен
+     */
     public Token getTokenByValue(String tokenValue) {
         return repository.findById(tokenValue).orElseThrow(()-> new TokenNotFoundException(tokenValue));
     }

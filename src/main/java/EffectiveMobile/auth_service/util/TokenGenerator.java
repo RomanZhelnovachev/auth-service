@@ -3,6 +3,10 @@ package EffectiveMobile.auth_service.util;
 import java.security.SecureRandom;
 import java.util.Base64;
 
+/**
+ * Утилитарный класс для генерации токена
+ * @author ZhelnovachevRoman
+ */
 public class TokenGenerator {
 
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();

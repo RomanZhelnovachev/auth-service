@@ -11,6 +11,14 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.Instant;
 import java.util.UUID;
 
+/**
+ * Сущность пользователя системы
+ * <p>
+ *     Модель данных для таблицы users
+ * </p>
+ *
+ * @author ZhelnovachevRoman
+ */
 @Entity
 @Table(name = "users")
 @Getter
@@ -29,9 +37,6 @@ public class User {
 
     @Column(name = "confirmed", nullable = false)
     private boolean confirmed;
-
-    @Column(name = "code", nullable = false)
-    private String code;
 
     @Column(name = "time_created", updatable = false)
     @CreationTimestamp

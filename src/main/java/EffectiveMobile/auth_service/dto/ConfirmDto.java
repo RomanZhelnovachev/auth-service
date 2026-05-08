@@ -4,6 +4,12 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
+/**
+ * DTO для подтверждения регистрации пользователя
+ * @param email
+ * @param code
+ * @author ZhelnovachevRoman
+ */
 public record ConfirmDto(
 
         @NotBlank(message = "Email не может быть пустым")

@@ -126,7 +126,6 @@ class AuthServiceIntegrationTest {
                 .id(UUID.randomUUID())
                 .email(email)
                 .confirmed(false)
-                .code(CODE)
                 .timeCreated(TIME)
                 .build();
     }
